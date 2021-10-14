@@ -7,11 +7,8 @@ const { species } = require('../data/zoo_data');
 // Com o argumento { specie: 'penguins' }, retorna um número, a quantidade de pinguins no zoológico;
 
 // Com o argumento { specie: 'giraffes', sex: 'female' }, retorna um número, a quantidade de girafas do sexo feminino.
-// console.log(species.residents);
 
-// const sexSpecie = (findSpecie) => {
-//   const findSex = findSpecie.filter((sex) => {
-// };
+// construido com ajuda de Guilherme Augusto =)
 
 function allSpecie(animal) {
   return species.reduce((acc, specieCount) => {
@@ -31,8 +28,5 @@ function countAnimals(animal) {
   }
   return findResidents.filter((animalSex) => animal.sex === animalSex.sex).length;
 }
-
-// findSpecie.residents.reduce((acc, specieCount) => specieCount.residents.length, {});
-console.log(countAnimals({ specie: 'giraffes', sex: 'female' }));
 
 module.exports = countAnimals;
