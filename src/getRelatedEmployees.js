@@ -16,7 +16,7 @@ function getRelatedEmployees(managerId) {
   if (!isManager(managerId)) {
     throw new Error('O id inserido não é de uma pessoa colaboradora gerente!');
   }
-  const responsibleFor = employees.filter((person) => person.managers.includes(managerId));
+  const responsibleFor = employees.filter(({ managers }) => managers.includes(managerId));
   return responsibleFor.map((person) => `${person.firstName} ${person.lastName}`);
 }
 
