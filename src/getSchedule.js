@@ -12,29 +12,10 @@ function getAnimalAvailableByDay(day) {
   return species.filter((specie) => specie.availability.includes(day))
     .map((animal) => animal.name);
 }
-
-const getDay = ((day) => {
-  const { open, close } = hours[day];
-  if (day !== 'Monday') {
-    return {
-      [day]: {
-        officeHour: `Open from ${open}am until ${close}pm`,
-        exhibition: getAnimalAvailableByDay(day),
-      },
-    };
-  }
-
-  return {
-    [day]: {
-      officeHour: 'CLOSED',
-      exhibition: 'The zoo will be closed!',
-    },
-  };
-});
-
-const getAllDays = (() => {
+// entrada aleatória, var simples sem (...), em array ele desmembra Costruido com ajuda do Guilherme Augusto
+const getAllDays = ((...all) => {
   const schedule = {};
-  weekdays.forEach((value) => {
+  all.forEach((value) => {
     if (value !== 'Monday') {
       const { open, close } = hours[value];
       schedule[value] = {
@@ -56,7 +37,7 @@ function getSchedule(scheduleTarget) {
   const findDay = weekdays.find((day) => day === scheduleTarget);
 
   if (!scheduleTarget) {
-    return getAllDays();
+    return getAllDays(...weekdays);
   }
   if (allAnimals.includes(scheduleTarget)) {
     const checkAnimal = species.find((animal) => animal.name === scheduleTarget);
@@ -64,8 +45,8 @@ function getSchedule(scheduleTarget) {
     return availability;
   }
   if (weekdays.includes(scheduleTarget)) {
-    return getDay(findDay);
+    return getAllDays(findDay);
   }
-  return getAllDays();
+  return getAllDays(...weekdays);
 }
 module.exports = getSchedule;
