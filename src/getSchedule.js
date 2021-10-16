@@ -32,21 +32,40 @@ const getDay = ((day) => {
   };
 });
 
+const getAllDays = (() => {
+  const schedule = {};
+  weekdays.forEach((value) => {
+    if (value !== 'Monday') {
+      const { open, close } = hours[value];
+      schedule[value] = {
+        officeHour: `Open from ${open}am until ${close}pm`,
+        exhibition: getAnimalAvailableByDay(value),
+      };
+    } else {
+      schedule.Monday = {
+        officeHour: 'CLOSED',
+        exhibition: 'The zoo will be closed!',
+      };
+    }
+  });
+  return schedule;
+});
+
 function getSchedule(scheduleTarget) {
-  // 'sem parâmetros, retorna os horários para cada dia e quais animais estarão disponíveis'
-  const allDays = [];
+  const allAnimals = species.map((specie) => specie.name);
+  const findDay = weekdays.find((day) => day === scheduleTarget);
+
   if (!scheduleTarget) {
-    weekdays.forEach((value) => allDays.push(getDay(value)));
-    return allDays;
+    return getAllDays();
   }
-  // const allAnimals = species.map((specie) => specie.name);
-  // if (allAnimals.includes(scheduleTarget)) {
-  //   const checkAnimal = species.find((animal) => animal.name === scheduleTarget);
-  //   const { availability } = checkAnimal; // Array with weekdays of specific animal
-  //   return availability;
-  // }
-  // const findDay = weekdays.find((day) => day === scheduleTarget);
-  // return getDay(findDay);
+  if (allAnimals.includes(scheduleTarget)) {
+    const checkAnimal = species.find((animal) => animal.name === scheduleTarget);
+    const { availability } = checkAnimal; // Array with weekdays of specific animal
+    return availability;
+  }
+  if (weekdays.includes(scheduleTarget)) {
+    return getDay(findDay);
+  }
+  return getAllDays();
 }
-console.log(getSchedule());
 module.exports = getSchedule;
