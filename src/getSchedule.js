@@ -12,7 +12,7 @@ function getAnimalAvailableByDay(day) {
   return species.filter((specie) => specie.availability.includes(day))
     .map((animal) => animal.name);
 }
-// entrada aleatória, var simples sem (...), em array ele desmembra Costruido com ajuda do Guilherme Augusto
+// entrada aleatória, var simples sem (...), em array ele desmembra construído com ajuda do Guilherme Augusto
 const getAllDays = ((...all) => {
   const schedule = {};
   all.forEach((value) => {
