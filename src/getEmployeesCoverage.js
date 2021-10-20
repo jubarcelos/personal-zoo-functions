@@ -14,6 +14,8 @@ const data = require('../data/zoo_data');
 // }; 
 // { nome: Alice}
 
+// Desenvolvido com ajuda do Guilherme Augusto
+
 const { employees, species } = data;
 
 const checkEntrance = (identify) => {
