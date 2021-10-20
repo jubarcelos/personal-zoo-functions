@@ -11,7 +11,7 @@ const data = require('../data/zoo_data');
 //   fullName: 'Sharonda Spry',
 //   species: [ 'otters', 'frogs' ],
 //   locations: [ 'SE', 'SW' ],
-// }; 
+// };
 // { nome: Alice}
 
 // Desenvolvido com ajuda do Guilherme Augusto
