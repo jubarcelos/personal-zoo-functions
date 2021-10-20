@@ -49,4 +49,5 @@ function getSchedule(scheduleTarget) {
   }
   return getAllDays(...weekdays);
 }
+getSchedule('Monday');
 module.exports = getSchedule;
