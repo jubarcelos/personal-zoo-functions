@@ -1,81 +1,70 @@
 const data = require('../data/zoo_data');
-// name: O nome ou sobrenome da pessoa a ser buscada
-// id: O id da pessoa a ser buscada
-// Ao ser chamada sem argumentos, deverá retornar um array com a cobertura de todas as pessoas funcionárias:
-// Caso nenhuma pessoa seja encontrada com o nome, sobrenome ou id, deverá ser lançado um erro gerado com a função construtora Error da biblioteca padrão do JavaScript com a mensagem "Informações inválidas". Exemplo:
-
-// throw new Error('Informações inválidas');
-
-// Observações técnicas
-
-// Ao receber o objeto de opções com a propriedade name, procura a pessoa funcionária correspondente;
-// A opção name deverá aceitar nome e sobrenome para realizar a busca;
-// Ao chamar a função sem argumentos ela deve retornar um array com a cobertura de todas as pessoas funcionárias.
-// O que será avaliado
-
 // Se o objeto de opções tiver a propriedade name, retorna somente a pessoa correspondente;
 // A propriedade name do objeto de opções também funciona usando o segundo nome;
 // Se o objeto de opções tiver a propriedade id, retorna somente a pessoa correspondente;
+
 // Sem parâmetros, retorna uma lista com a cobertura de todas as pessoas funcionárias;
 // Caso não haja nenhuma pessoa com o nome ou id especificados deverá ser lançado um error.
+
 // const expected = {
 //   id: '4b40a139-d4dc-4f09-822d-ec25e819a5ad',
 //   fullName: 'Sharonda Spry',
 //   species: [ 'otters', 'frogs' ],
 //   locations: [ 'SE', 'SW' ],
-// };
+// }; 
+// { nome: Alice}
 
 const { employees, species } = data;
-const { name, location } = species;
 
-const checkEntrance = (entrance) => {
+const checkEntrance = (identify) => {
   const allEmpFName = employees.map((employee) => employee.firstName);
   const allEmpLName = employees.map((employee) => employee.lastName);
   const allEmpId = employees.map((employee) => employee.id);
-  if ( allEmpFName.includes(entrance) || allEmpLName.includes(entrance) || allEmpId.includes(entrance)) {
+  if (allEmpFName.includes(identify) || allEmpLName.includes(identify)
+    || allEmpId.includes(identify)) {
     return true;
   }
-  throw new Error('Informações inválidas');
-}
+  return false;
+};
 
-// const checkEntrance = (entrance) => {
-//   const { firstName, lastName, id } = employees;
-//   return (firstName === entrance || lastName === entrance || id === entrance);
-// };
-// console.log(checkEntrance('Nelson'));
+const getAnimals = (ids) => ids.map((id) => {
+  const animal = species.find((specie) => specie.id === id);
+  return animal.name;
+});
 
-const getEmployInfo = (employ) => {
-  const nameFirst = employees.find((func) => func.firstName === employ);
-  const nameLast = employees.find((func) => func.lastName === employ);
-  const EmployId = employees.find((func) => func.id === employ);
-  
+const getLocations = (animals) => animals.map((animal) => species.find((specie) =>
+  specie.name === animal).location);
+
+const organizeInfo = () => employees.map((employee) => {
+  const { firstName, responsibleFor, lastName, id } = employee;
   const fullName = `${firstName} ${lastName}`;
-
-  const { firstName, responsibleFor,  lastName, id} = employees;
-
   return {
     id,
     fullName,
-    species: ,
-    locations: ,
-} 
+    species: getAnimals(responsibleFor),
+    locations: getLocations(getAnimals(responsibleFor)),
+  };
+});
 
-const allAnimals = species.map((specie) => specie.name);
+function getEmployeesCoverage(entrance) {
+  if (!entrance) return organizeInfo();
+  const identify = Object.values(entrance)[0];
+  if (checkEntrance(identify) === false) {
+    throw new Error('Informações inválidas');
+  }
+  const getEmployee = (info) => employees.find((employ) => {
+    const { firstName, lastName, id } = employ;
+    return (firstName === info || lastName === info || id === info);
+  });
+  const persona = getEmployee(identify);
+  const { id, firstName, lastName, responsibleFor } = persona;
+  const fullName = `${firstName} ${lastName}`;
+  return {
+    id,
+    fullName,
+    species: getAnimals(responsibleFor),
+    locations: getLocations(getAnimals(responsibleFor)),
+  };
+}
 
-// function getEmployeesCoverage(...employ) {
-//   if (!...employ) {
-  checkEntrance
-//   }
-  
-//   if (!employ) {
-//     employees.forEach((id) => {
-
-//     }
-//     return 'any';
-//   }
-//   if ('firstName' in employ) {
-//     return {};
-//   }
-// }
-
-// module.exports = getEmployeesCoverage;
+module.exports = getEmployeesCoverage;
