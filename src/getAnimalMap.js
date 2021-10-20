@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const data = require('../data/zoo_data');
 
 const { species } = data;
