@@ -24,14 +24,16 @@ const allResidentNames = (animal, options) => {
 };
 
 const insertAnimals = (objWithNames, options) => {
+  const animalsWithOptions = {};
   const { NE, NW, SE, SW } = objWithNames;
   // recebe um objeto com o nome de todos os residentes, classificados por região.
-  objWithNames.NE = NE.map((animal) => allResidentNames(animal, options));
-  objWithNames.NW = NW.map((animal) => allResidentNames(animal, options));
-  objWithNames.SE = SE.map((animal) => allResidentNames(animal, options));
-  objWithNames.SW = SW.map((animal) => allResidentNames(animal, options));
+  animalsWithOptions.NE = NE.map((animal) => allResidentNames(animal, options));
+  animalsWithOptions.NW = NW.map((animal) => allResidentNames(animal, options));
+  animalsWithOptions.SE = SE.map((animal) => allResidentNames(animal, options));
+  animalsWithOptions.SW = SW.map((animal) => allResidentNames(animal, options));
   // callback allResidentNames verifica as options passada como parâmetro.
   // tem como fazer um forEach e otimizar?
+  return animalsWithOptions;
 };
 
 function getAnimalMap(options) {
@@ -48,7 +50,6 @@ function getAnimalMap(options) {
     return answerNames;
   }
   // callback verifica options de exibição passada por parametro (sexo, sorted, includeNames).
-  insertAnimals(answerNames, options);
-  return answerNames;
+  return insertAnimals(answerNames, options);
 }
 module.exports = getAnimalMap;
