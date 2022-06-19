@@ -1,7 +1,8 @@
-# Project: Playground functions.
+# Project: Zoo functions.
 
 Overview
 This project is like a HackerRank, just a lot of functions applyed to solve individuals tasks.
+The theme of the project is a zoo, so it is based on entrance tickets, events schedule, and count of visitors.
 
 ### Proposed development
 
